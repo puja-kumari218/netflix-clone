@@ -1,34 +1,18 @@
-import api from "../baseController";
+import api, { handleResponse } from "../baseController";
 
 const auth = {
   login: async (email, password) => {
-    try {
-      const reponse = api.post("/auth/login", {
-        email: email,
-        password: password,
-      });
-
-      return reponse;
-    } catch (err) {
-      console.log(err);
-      return false;
-    }
+    return handleResponse(
+      api.post("/auth/login", { email, password }).then((res) => {
+        return res;
+      })
+    );
   },
- register: async (name, email, password) => {
-    try {
-      const reponse = api.post("/auth/register", {
-        name:name,
-        email: email,
-        password: password,
-      });
 
-      return reponse;
-    } catch (err) {
-      console.log(err);
-      return false;
-    }
+  register: async (name, email, password) => {
+    return handleResponse(
+      api.post("/auth/register", { name, email, password })
+    );
   },
- 
-
 };
 export default auth;

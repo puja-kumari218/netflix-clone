@@ -1,11 +1,17 @@
 import React, { useCallback, useState } from "react";
 import Input from "../components/Input";
-import api from "../api";
+import API from "../api";
+import { toast } from "sonner";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/slices/authSlice";
+import { redirect, useNavigate } from "react-router-dom";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [variant, setVariant] = useState("login");
 
@@ -17,9 +23,22 @@ const Auth = () => {
 
   const handleSubmit = () => {
     if (variant === "login") {
-      api.auth.login(email, password);
+      toast.promise(API.auth.login(email, password), {
+        loading: "Please wait we are siginin in...",
+        success: (res) => {
+          dispatch(setUser({ user: res.user, token: res.token }));
+          navigate("/");
+          return res.message;
+        },
+      });
     } else {
-      api.auth.register(name, email, password);
+      toast.promise(API.auth.register(name, email, password), {
+        loading: "Please wait we are registering your account...",
+        success: (res) => {
+          setVariant("login");
+          return res.message;
+        },
+      });
     }
   };
 
