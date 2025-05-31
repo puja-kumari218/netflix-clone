@@ -16,7 +16,11 @@ const Auth = () => {
   }, []);
 
   const handleSubmit = () => {
-    api.auth.login(email, password);
+    if (variant === "login") {
+      api.auth.login(email, password);
+    } else {
+      api.auth.register(name, email, password);
+    }
   };
 
   return (
