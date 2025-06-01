@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Auth from "./pages/Auth";
 import { useDispatch } from "react-redux";
 import { setUser } from "./redux/slices/authSlice";
+import Profiles from "./pages/Profiles";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/profiles" element={<Profiles/>} />
       </Routes>
     </Router>
   );

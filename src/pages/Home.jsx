@@ -1,11 +1,17 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import Billboard from "../components/Billboard";
+
 function Home() {
   const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate()
   return (
-    <div className="text-red-500 text-3xl">
-      Welcome to Netflix {user?.email}
-    </div>
+    <>
+      <Navbar/>
+    <Billboard/>
+    </>
   );
 }
 export default Home;

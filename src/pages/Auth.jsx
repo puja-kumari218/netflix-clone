@@ -27,7 +27,7 @@ const Auth = () => {
         loading: "Please wait we are siginin in...",
         success: (res) => {
           dispatch(setUser({ user: res.user, token: res.token }));
-          navigate("/");
+          navigate("/profiles");
           return res.message;
         },
       });
