@@ -23,8 +23,8 @@ const Billboard = () => {
         </p>
         <div className="flex flex-row items-center mt-3 md:mt-4 gap-4">
           <button
-            className="bg-gray-900 text-white bg-opacity-30 rounded-md py-1 md:py-2 px-2 md:px-4 w-auto
-             text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-opacity-20 transition"
+            className="bg-white/30 text-white  rounded-md py-1 md:py-2 px-2 md:px-4 w-auto
+             text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-white/20 transition cursor-pointer"
           >
             <BsInfoCircle className="mr-2" />
             More Info
