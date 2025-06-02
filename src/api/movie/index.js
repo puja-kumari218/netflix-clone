@@ -8,5 +8,12 @@ const movie = {
       })
     );
   },
+  movies: async () => {
+    return handleResponse(
+      api.get("/movie/movies").then((res) => {
+        return res;
+      })
+    );
+  },
 };
 export default movie;
