@@ -1,6 +1,15 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/slices/authSlice";
 
 const AccountMenu = ({ visible }) => {
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const signOut = () => {
+    dispatch(logout());
+    window.location.reload();
+  };
+
   if (!visible) {
     return null;
   }
@@ -14,18 +23,19 @@ const AccountMenu = ({ visible }) => {
             alt=""
           />
           <p className="text-white text-sm group-hover/item:underline ">
-            user
+            {user?.name}
           </p>
         </div>
-        <hr className="bg-gray-600 border-0 h-px my-4"/>
-        <div onClick={() => signOut()} className="px-3 text-center text-white text-sm hover:underline">
-           Sign out of Netflix
+        <hr className="bg-gray-600 border-0 h-px my-4" />
+        <div
+          onClick={() => signOut()}
+          className="px-3 text-center text-white text-sm hover:underline"
+        >
+          Sign out of Netflix
         </div>
       </div>
     </div>
   );
 };
-// const navigate = useNavigate();
-//           navigate("/profiles");
 
 export default AccountMenu;

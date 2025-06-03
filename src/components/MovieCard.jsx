@@ -1,7 +1,15 @@
 import React from "react";
 import { BsFillPlayFill } from "react-icons/bs";
+import FavoriteButton from "./FavoriteButton";
+import { Navigate, useNavigate } from "react-router-dom";
+import useInfoModal from "../hooks/useInfoModal";
+import { LuChevronDown } from "react-icons/lu";
 
-const MovieCard = ({ data }) => {
+const MovieCard = ({ data, movies, deleteFavorite, updateFavorite }) => {
+  const navigate = useNavigate();
+
+  const { openModal } = useInfoModal();
+
   return (
     <div className="group bg-zinc-900 col-span relative h-[12vw] w-full">
       <img
@@ -19,15 +27,41 @@ const MovieCard = ({ data }) => {
         />
         <div className="z-10 bg-white/10 backdrop-blur-md p-2 lg:p-3 absolute w-full transition duration-200 shadow-md rounded-b-md">
           <div className="flex flex-row items-center gap-4">
-            <div className="flex flex-col items-center gap-2">
-              <div
-                className="cursor-pointer w-10 h-10 lg:w-10 lg:h-10 bg-white/20 backdrop-blur-sm rounded-full flex justify-center items-center transition hover:bg-white/30 text-white shadow-lg"
-                onClick={() => {}}
-              >
-                <BsFillPlayFill size={30} />
-              </div>
-              <p className="text-green-400 text-xs lg:text-sm">New <span className="text-white">2023</span></p>
+            <div
+              className="cursor-pointer w-10 h-10 lg:w-10 lg:h-10 bg-white/20 backdrop-blur-sm rounded-full flex justify-center items-center transition hover:bg-white/30 text-white shadow-lg"
+              onClick={() => navigate(`/watch/${data?.id}`)}
+            >
+              <BsFillPlayFill size={30} />
             </div>
+            <FavoriteButton
+              movieId={data?.id}
+              data={movies}
+              deleteFavorite={deleteFavorite}
+              updateFavorite={updateFavorite}
+            />
+            <div
+              onClick={() => openModal(data?.id)}
+              className="cursor-pointer ml-auto group/item 
+             w-6 h-6 lg:w-8 lg:h-8 
+             border-2 border-white 
+             rounded-full 
+             flex justify-center items-center 
+             transition hover:border-neutral-300"
+            >
+              <LuChevronDown
+                className="text-white group-hover/item:text-neutral-300"
+                size={14}
+              />
+            </div>
+          </div>
+          <p className="text-green-400 text-xs lg:text-sm">
+            New <span className="text-white">2023</span>
+          </p>
+          <div className="flex flex-row mt-4 gap-2 items-center">
+            <p className="text-white text-[10px] lg:text-sm">{data.duration}</p>
+          </div>
+          <div className="flex flex-row mt-4 gap-2 items-center">
+            <p className="text-white text-[10px] lg:text-sm">{data.genre}</p>
           </div>
         </div>
       </div>
